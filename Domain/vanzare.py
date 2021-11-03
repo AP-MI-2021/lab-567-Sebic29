@@ -1,21 +1,21 @@
-def creeaza_vanzare(id_carte: int, tiltu_carte, gen_carte, pret, tip_reducere_client):
+def creeaza_vanzare(id_carte: int, titlu_carte, gen_carte, pret, tip_reducere_client):
     """
     Creeaza o vanzare pentru carte
     :param id_carte: Id ul cartii
-    :param tiltu_carte: Titlul cartii
+    :param titlu_carte: Titlul cartii
     :param gen_carte: Genul cartii
     :param pret: Pretul cartii
     :param tip_reducere_client: Tip reducere client(none,silver,gold)
     :return: O vanzare
     """
 
-    return [
-        id_carte,
-        tiltu_carte,
-        gen_carte,
-        pret,
-        tip_reducere_client
-    ]
+    return {
+        'id': id_carte,
+        'titlu': titlu_carte,
+        'gen': gen_carte,
+        'pret': pret,
+        'reducere': tip_reducere_client
+    }
 
 
 def get_id(vanzare):
@@ -24,7 +24,7 @@ def get_id(vanzare):
     :param vanzare: cartea
     :return: id ul cartii
     """
-    return vanzare[0]
+    return vanzare['id']
 
 
 def get_titlu(vanzare):
@@ -33,7 +33,7 @@ def get_titlu(vanzare):
     :param vanzare: cartea
     :return: titlul cartii
     """
-    return vanzare[1]
+    return vanzare['titlu']
 
 
 def get_gen(vanzare):
@@ -42,7 +42,7 @@ def get_gen(vanzare):
     :param vanzare: cartea
     :return: genul cartii
     """
-    return vanzare[2]
+    return vanzare['gen']
 
 
 def get_pret(vanzare):
@@ -51,7 +51,7 @@ def get_pret(vanzare):
     :param vanzare: cartea
     :return:pretul cartii
     """
-    return vanzare[3]
+    return vanzare['pret']
 
 
 def get_reducere(vanzare):
@@ -60,8 +60,8 @@ def get_reducere(vanzare):
     :param vanzare: cartea
     :return: reducerea cartii
     """
-    return vanzare[4]
+    return vanzare['reducere']
 
 
 def get_str(vanzare):
-    return f'Vanzarea cu id ul {get_id(vanzare)} contine cartea {get_titlu(vanzare)}'
+    return f'Vanzarea cu id ul {get_id(vanzare)} contine cartea {get_titlu(vanzare)} de genul {get_gen(vanzare)} avand pretul {get_pret(vanzare)} si tipul de reducere fiind {get_reducere(vanzare)}'

@@ -1,5 +1,6 @@
 from Domain.vanzare import creeaza_vanzare, get_id
 from Logic.Crud import create_sell, read, update, delete
+from Tests.Teste_functionalitati import test_reducere
 
 
 def get_data():
@@ -38,8 +39,6 @@ def test_update():
     assert len(updated) == len(vanzari)
 
 
-
-
 def test_delete():
     vanzari = get_data()
     for_delete = 6
@@ -48,6 +47,7 @@ def test_delete():
     assert p_deleted not in deleted
     assert p_deleted in vanzari
     assert len(deleted) == len(vanzari) - 1
+
 
 
 def Test_crud():

@@ -24,6 +24,9 @@ def read(lst_vanzari, id_vanzare: int = None):
     :param id_vanzare:id ul vanzarii
     :return: vanzare cu id-ul id_vanzare sau lista cu toate vanzarile, daca id_vanzare=None
     """
+    if not id_vanzare:
+        return lst_vanzari
+
     vanzare_cu_id = None
     for vanzare in lst_vanzari:
         if get_id(vanzare) == id_vanzare:
@@ -31,7 +34,7 @@ def read(lst_vanzari, id_vanzare: int = None):
 
     if vanzare_cu_id:
         return vanzare_cu_id
-    return lst_vanzari
+    return None
 
 
 def update(lst_vanzari, new_vanzare):
@@ -41,6 +44,9 @@ def update(lst_vanzari, new_vanzare):
     :param new_vanzare:vanzarea care se va actualiza cu cea exista pe acel id.
     :return: o lista cu vanzarea actualizata.
     """
+
+    if read(lst_vanzari, get_id(new_vanzare)) is None:
+        raise ValueError(f'Nu exista o vanzarea cu id ul {get_id(new_vanzare)} pe care sa o actualizam')
 
     new_vanzari = []
     for vanzare in lst_vanzari:
@@ -58,6 +64,10 @@ def delete(lst_vanzari, id_vanzare: int):
     :param id_vanzare:id ul vanzarii care urmeaza sa fie stearsa
     :return: o lista de vaznari fara vanzarea cu id-ul id_vanzare.
     """
+
+    if read(lst_vanzari, id_vanzare) is None :
+        raise ValueError(f'Nu exista vanzarea cu id ul {id_vanzare} pe care sa o stergem')
+
     new_vanzari = []
     for vanzare in lst_vanzari:
         if get_id(vanzare) != id_vanzare:
