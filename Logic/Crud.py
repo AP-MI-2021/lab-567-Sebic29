@@ -1,7 +1,8 @@
 from Domain.vanzare import creeaza_vanzare, get_id
 
 
-def create_sell(lst_vanzari, id_carte, titlu_carte, gen_Carte, pret, tip_reducere_client):
+def create_sell(lst_vanzari, id_carte, titlu_carte, gen_Carte, pret, tip_reducere_client, undo_list: list,
+                redo_list: list):
     """
     Creeaza o lista de vanzari
     :param lst_vanzari: Lista de carti pusa spre vanzare
@@ -12,8 +13,11 @@ def create_sell(lst_vanzari, id_carte, titlu_carte, gen_Carte, pret, tip_reducer
     :param tip_reducere_client: Tipul reducerii de aplicat clientului
     :return: O lista
     """
-
+    if read(lst_vanzari, id_carte) is not None:
+        raise ValueError("Deja exista o vanzare cu id-ul {0}".format(id_carte))
     vanzare = creeaza_vanzare(id_carte, titlu_carte, gen_Carte, pret, tip_reducere_client)
+    undo_list.append(lst_vanzari)
+    redo_list.clear()
     return lst_vanzari + [vanzare]
 
 
@@ -37,7 +41,8 @@ def read(lst_vanzari, id_vanzare: int = None):
     return None
 
 
-def update(lst_vanzari, new_vanzare):
+def update(lst_vanzari, new_vanzare, undo_list: list,
+           redo_list: list):
     """
     Actualizeaza o vanzare.
     :param lst_vanzari: lista de vanzari.
@@ -54,10 +59,14 @@ def update(lst_vanzari, new_vanzare):
             new_vanzari.append(vanzare)
         else:
             new_vanzari.append(new_vanzare)
+
+    undo_list.append(lst_vanzari)
+    redo_list.clear()
     return new_vanzari
 
 
-def delete(lst_vanzari, id_vanzare: int):
+def delete(lst_vanzari, id_vanzare: int, undo_list: list,
+           redo_list: list):
     """
     Sterge o vanzare existenta in lista
     :param lst_vanzari: O lista de vanzazri
@@ -65,7 +74,7 @@ def delete(lst_vanzari, id_vanzare: int):
     :return: o lista de vaznari fara vanzarea cu id-ul id_vanzare.
     """
 
-    if read(lst_vanzari, id_vanzare) is None :
+    if read(lst_vanzari, id_vanzare) is None:
         raise ValueError(f'Nu exista vanzarea cu id ul {id_vanzare} pe care sa o stergem')
 
     new_vanzari = []
@@ -73,4 +82,6 @@ def delete(lst_vanzari, id_vanzare: int):
         if get_id(vanzare) != id_vanzare:
             new_vanzari.append(vanzare)
 
+    undo_list.append(lst_vanzari)
+    redo_list.clear()
     return new_vanzari

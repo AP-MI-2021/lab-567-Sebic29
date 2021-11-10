@@ -1,5 +1,4 @@
 from Domain.vanzare import get_titlu, creeaza_vanzare, get_id, get_pret, get_reducere, get_gen
-from Logic.Crud import create_sell
 
 
 def get_by_titlu(titlu, lista):
@@ -14,7 +13,7 @@ def get_by_titlu(titlu, lista):
     return None
 
 
-def modificare_gen(titlu, gen_nou, lista):
+def modificare_gen(titlu, gen_nou, lista, undo_list, redo_list):
     """
     Modifica genul cartii pentru un titlu dat
     :param titlu: titlul cartii al carui gen urmeaza sa fie modificat
@@ -23,6 +22,7 @@ def modificare_gen(titlu, gen_nou, lista):
     :return:genul modificat in functie de titlul cartii
     """
     result = []
+
     for vanzare in lista:
         if get_titlu(vanzare) == titlu:
             result.append(creeaza_vanzare(
@@ -37,4 +37,6 @@ def modificare_gen(titlu, gen_nou, lista):
 
     if get_by_titlu(titlu, lista) is None:
         raise ValueError("Nu exista titlul dat!")
+    undo_list.append(lista)
+    redo_list.clear()
     return result

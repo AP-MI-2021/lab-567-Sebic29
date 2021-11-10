@@ -1,7 +1,7 @@
 from Domain.vanzare import get_reducere, get_pret, get_id, get_titlu, get_gen, creeaza_vanzare
 
 
-def reducere_tip(lst_vanzari, tip_reducere):
+def reducere_tip(lst_vanzari, tip_reducere, undo_list, redo_list):
     """
     
     :param lst_vanzari: O lista de vanzari
@@ -17,7 +17,7 @@ def reducere_tip(lst_vanzari, tip_reducere):
         'none': None,
 
     }
-    if tip_reducere != 'Silver' and  tip_reducere != 'Gold'  :
+    if tip_reducere != 'Silver' and tip_reducere != 'Gold':
         raise ValueError('Tipul de reducere poate fi Silver sau Gold')
 
     if tip_reducere == ' ':
@@ -36,5 +36,6 @@ def reducere_tip(lst_vanzari, tip_reducere):
             ))
         else:
             result.append(vanzare)
-
-    return  result
+    undo_list.append(lst_vanzari)
+    redo_list.clear()
+    return result
