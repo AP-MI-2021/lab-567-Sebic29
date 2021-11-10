@@ -25,7 +25,7 @@ def handle_add(carte, lst):
         pret = float(lst[4])
         tip_reducere = lst[5]
 
-        return create_sell(carte, id_carte, titlu, gen, pret, tip_reducere)
+        return create_sell(carte, id_carte, titlu, gen, pret, tip_reducere,[],[])
     except ValueError as ve:
         print("EROARE", ve)
     return carte
@@ -51,7 +51,7 @@ def handle_delete(vanzari, lst):
     if len(lst) != 2:
         raise ValueError("Nu ati introdus numarul exact de parametrii")
     try:
-        new_cheltuieli = delete(vanzari, int(lst[1]))
+        new_cheltuieli = delete(vanzari, int(lst[1]),[],[])
         print("Stergerea s-a efectual cu succes")
         return new_cheltuieli
     except ValueError as va:

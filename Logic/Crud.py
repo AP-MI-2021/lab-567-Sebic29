@@ -72,6 +72,7 @@ def delete(lst_vanzari, id_vanzare: int, undo_list: list,
     :param lst_vanzari: O lista de vanzazri
     :param id_vanzare:id ul vanzarii care urmeaza sa fie stearsa
     :return: o lista de vaznari fara vanzarea cu id-ul id_vanzare.
+
     """
 
     if read(lst_vanzari, id_vanzare) is None:
@@ -85,3 +86,5 @@ def delete(lst_vanzari, id_vanzare: int, undo_list: list,
     undo_list.append(lst_vanzari)
     redo_list.clear()
     return new_vanzari
+
+

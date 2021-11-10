@@ -20,6 +20,7 @@ def test_undo_redo():
     result = do_undo(undo_lst, redo_lst, result)
     assert len(result) == len(vanzari)
     result = do_undo(undo_lst, redo_lst, result)
-    assert result == None
+    assert result == vanzari
     result = do_redo(undo_lst, redo_lst, result)
     assert len(result) == len(vanzari) + 1
+
