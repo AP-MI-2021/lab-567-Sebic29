@@ -5,6 +5,7 @@ from Logic.modificare_gen import modificare_gen
 from Logic.ordonare_crescator_pret import ordonare_crescator
 from Logic.reducere import reducere_tip
 from Logic.titluri_distincte import distinct_title
+from Logic.undo_and_redo import do_redo, do_undo
 
 
 def get_idd(lst_vanzari, id_vanzare):
@@ -37,17 +38,18 @@ def test_reducere():
 
 
 def test_modificare_gen():
-    vanzari = []
-    vanzari = create_sell(vanzari, 1, 't1', "g1", 15, "Silver", [], [])
-    vanzari = create_sell(vanzari, 3, 't2', "g3", 8, "Silver", [], [])
-    vanzari = create_sell(vanzari, 2, 't2', "g2", 12, "Gold", [], [])
-    vanzari = create_sell(vanzari, 4, 't4', "g4", 20, "Gold", [], [])
-    vanzari = modificare_gen('t2', 'Actiune', vanzari, [], [])
-    assert get_gen(get_idd(vanzari, 2)) == 'Actiune'
-    assert get_gen(get_idd(vanzari, 3)) == 'Actiune'
-    assert get_gen(get_idd(vanzari, 4)) == 'g4'
+    start_program = []
+    undo_list = []
+    redo_list = []
+    start_program = create_sell(start_program, 1, 't1', 'g1', 10, 'Silver', undo_list, redo_list)
+    start_program = create_sell(start_program, 2, 't2', 'g2', 10.50, 'Gold', undo_list, redo_list)
+    start_program = create_sell(start_program, 3, 't3', 'g2', 100, 'Gold', undo_list, redo_list)
+    start_program = modificare_gen('t2','Actiune',start_program,undo_list,redo_list)
+    start_program = do_undo(undo_list, redo_list, start_program)
+    assert len(start_program) == 2
 
 
+test_modificare_gen()
 def test_min_pret_per_gen():
     vanzari = []
     vanzari = create_sell(vanzari, 1, 't1', "g1", 15, "Silver", [], [])
