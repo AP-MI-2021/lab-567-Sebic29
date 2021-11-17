@@ -46,10 +46,9 @@ def test_modificare_gen():
     start_program = create_sell(start_program, 3, 't3', 'g2', 100, 'Gold', undo_list, redo_list)
     start_program = modificare_gen('t2','Actiune',start_program,undo_list,redo_list)
     start_program = do_undo(undo_list, redo_list, start_program)
-    assert len(start_program) == 2
+    assert len(start_program) == 3
 
 
-test_modificare_gen()
 def test_min_pret_per_gen():
     vanzari = []
     vanzari = create_sell(vanzari, 1, 't1', "g1", 15, "Silver", [], [])

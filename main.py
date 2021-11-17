@@ -4,6 +4,7 @@ from Tests.Test_crud import Test_crud
 from Tests.Teste_functionalitati import teste_functionalitati
 from Tests.test_lab7 import undo_redo_lab7
 from Tests.test_undo_redo import test_undo_redo
+from Tests.test_undo_redo_functionalitati import general_test
 from UserInterface.command_line_console import run_command
 from UserInterface.console import run_ui
 
@@ -25,5 +26,6 @@ if __name__ == '__main__':
     Test_crud()
     teste_functionalitati()
     test_undo_redo()
+    general_test()
     undo_redo_lab7()
     main()
